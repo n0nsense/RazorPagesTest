@@ -5,8 +5,13 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="linq2db" Version="3.1.0" />
+    <PackageReference Include="linq2db.SqlServer" Version="3.1.0" />
+    <PackageReference Include="linq2db.t4models" Version="3.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.4" />
     <PackageReference Include="DevExtreme.AspNet.Core" Version="19.2.3" />
     <PackageReference Include="DevExtreme.AspNet.Data" Version="2.5.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DataModels\" />
   </ItemGroup>
 </Project>
