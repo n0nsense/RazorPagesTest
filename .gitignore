@@ -3,3 +3,6 @@ RazorPagesSolution/.vs/RazorPagesSolution/v16/.suo
 RazorPagesSolution/RazorPages/bin
 RazorPagesSolution/RazorPages/obj
 RazorPagesSolution/.vs/RazorPagesSolution/DesignTimeBuild/.dtbcache.v2
+RazorPagesSolution/RazorPages/DataModels/RazorBase.tt
+RazorPagesSolution/RazorPages/DataModels/RazorBase.generated.cs
+RazorPagesSolution/RazorPages/RazorPages.csproj
