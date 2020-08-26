@@ -1,0 +1,25 @@
+﻿@page
+@model RazorPages.Pages.PhoneBookModel
+@{
+}
+@(Html.DevExtreme().DataGrid<DataModels.PhoneBook>()
+    .Columns(columns => {
+
+        columns.AddFor(m => m.IdPb);
+
+        columns.AddFor(m => m.Name);
+
+        columns.AddFor(m => m.Patronymic);
+
+        columns.AddFor(m => m.Surname);
+
+        columns.AddFor(m => m.Phone);
+
+        columns.AddFor(m => m.Sex);
+    })
+    .Editing(e => e
+        .AllowAdding(true)
+        .AllowUpdating(true)
+        .AllowDeleting(true)
+    )
+)
