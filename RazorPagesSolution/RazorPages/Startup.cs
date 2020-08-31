@@ -2,12 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DataModels;
+using LinqToDB.AspNet;
+using LinqToDB.AspNet.Logging;
+using LinqToDB.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 
 namespace RazorPages
 {
@@ -23,6 +28,12 @@ namespace RazorPages
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddLinqToDbContext<RazorBaseDB>((provider, options) =>
+            //{
+            //    options.UseSqlServer(Configuration.GetConnectionString("connString"));
+            //    options.UseDefaultLogging(provider);
+            //});
+            DataConnection.DefaultSettings = new MySettings();
             services.AddRazorPages().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
         }
 
@@ -52,6 +63,12 @@ namespace RazorPages
                 endpoints.MapControllers();
                 endpoints.MapRazorPages();
             });
+
+            //using (var scope = app.ApplicationServices.CreateScope())
+            //{
+            //    var dataConnection = scope.ServiceProvider.GetService<RazorBaseDB>();
+            //    //dataConnection.PhoneBooks();
+            //}
         }
     }
 }

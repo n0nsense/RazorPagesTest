@@ -3,6 +3,10 @@
 @{
 }
 @(Html.DevExtreme().DataGrid<DataModels.PhoneBook>()
+    .DataSource(ds => ds.RemoteController()
+    .LoadUrl(Url.Page(null, "PhoneBook"))
+    )
+    .RemoteOperations(true)
     .Columns(columns => {
 
         columns.AddFor(m => m.IdPb);
