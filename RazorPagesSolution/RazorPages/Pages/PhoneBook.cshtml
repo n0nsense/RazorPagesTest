@@ -4,9 +4,11 @@
 }
 @(Html.DevExtreme().DataGrid<DataModels.PhoneBook>()
     .DataSource(ds => ds.RemoteController()
-    .LoadUrl(Url.Page(null, "PhoneBook"))
+    .LoadUrl(Url.Page(null, "ListAll"))
+    .InsertUrl(Url.PageLink("AddItem"))
     )
     .RemoteOperations(true)
+    .ShowBorders(true)
     .Columns(columns => {
 
         columns.AddFor(m => m.IdPb);

@@ -13,20 +13,20 @@ namespace RazorPages.Pages
 {
     public class PhoneBookModel : PageModel
     {
-        //private readonly RazorBaseDB _context;
-        //public PhoneBookModel(RazorBaseDB context)
-        //{
-        //    _context = context;
-        //}
-
-        public JsonResult OnGetPhoneBook()
+        public JsonResult OnGetListAll()
         {  
             using(var db = new RazorBaseDB())
             {
                 return new JsonResult(db.PhoneBooks.ToList());
             }
-            //var _data = _context.PhoneBooks.ToList();
             
+        }
+        public void OnPostInsertItem()
+        {
+            using (var db = new RazorBaseDB())
+            {
+                //return new JsonResult(db.PhoneBooks.ToList());
+            }
         }
     }
 }
