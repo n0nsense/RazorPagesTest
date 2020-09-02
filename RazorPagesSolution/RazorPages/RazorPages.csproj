@@ -13,6 +13,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.7" />
     <PackageReference Include="DevExtreme.AspNet.Core" Version="19.2.3" />
     <PackageReference Include="DevExtreme.AspNet.Data" Version="2.7.0" />
+    <PackageReference Include="Splat" Version="9.5.35" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
   </ItemGroup>
   <ItemGroup>
