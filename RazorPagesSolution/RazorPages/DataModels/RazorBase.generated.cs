@@ -50,7 +50,7 @@ namespace DataModels
 	[Table(Schema="dbo", Name="PhoneBook")]
 	public partial class PhoneBook
 	{
-		[Column("id_pb"),      PrimaryKey,  NotNull] public int    IdPb       { get; set; } // int
+		[Column("id_pb"),      PrimaryKey,  Nullable] public int    IdPb       { get; set; } // int
 		[Column("name"),                    NotNull] public string Name       { get; set; } // nvarchar(50)
 		[Column("patronymic"),    Nullable         ] public string Patronymic { get; set; } // nvarchar(50)
 		[Column("surname"),       Nullable         ] public string Surname    { get; set; } // nvarchar(50)

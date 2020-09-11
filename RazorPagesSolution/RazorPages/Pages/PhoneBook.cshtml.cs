@@ -80,5 +80,55 @@ namespace RazorPages.Pages
             }
         }
 
+        public IActionResult OnPostGridRowAdd(string values)
+        {
+            try
+            {
+                var transaction = _context.BeginTransaction();
+                int idpb = 0;
+                var qPhoneBooks = from p in _context.PhoneBooks orderby p.IdPb descending select p;
+                var resultPhoneBooks = qPhoneBooks.FirstOrDefault();
+                if (resultPhoneBooks != null)
+                {
+                    idpb = resultPhoneBooks.IdPb + 1;
+                }
+                var _values = JsonConvert.DeserializeObject<DataModels.PhoneBook>(values);
+                _values.IdPb = idpb;
+
+                var inserted = _context.Insert(_values);
+
+                if (inserted != 1)
+                    return BadRequest("Ошибка при добавлении записи.");
+                else
+                {
+                    int idpbh = 0;
+                    var qPhoneBookHistories = from p in _context.PhoneBookHistories orderby p.IdPbh descending select p;
+                    var resultPhoneBookHistories = qPhoneBookHistories.FirstOrDefault();
+                    if (resultPhoneBookHistories != null)
+                    {
+                        idpbh = resultPhoneBookHistories.IdPbh;
+                    }
+
+                    _context.PhoneBookHistories
+                        .Value(p => p.Date, DateTime.Now)
+                        .Value(p => p.IdPb, _values.IdPb)
+                        .Value(p => p.IdPbh, idpbh + 1)
+                        .Value(p => p.Name, _values.Name)
+                        .Value(p => p.Patronymic, _values.Patronymic)
+                        .Value(p => p.Phone, _values.Phone)
+                        .Value(p => p.Surname, _values.Surname)
+                        .Value(p => p.Sex, _values.Sex)
+                        .Insert();
+                }
+                transaction.Commit();
+                return new OkResult();
+            }
+            catch (Exception ex)
+            {
+                return new BadRequestObjectResult(ex.ToString());
+            }
+            //return new OkResult();
+        }
+
     }
 }

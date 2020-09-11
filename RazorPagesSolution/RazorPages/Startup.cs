@@ -28,11 +28,6 @@ namespace RazorPages
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddLinqToDbContext<RazorBaseDB>((provider, options) =>
-            //{
-            //    options.UseSqlServer(Configuration.GetConnectionString("connString"));
-            //    options.UseDefaultLogging(provider);
-            //});
             services.AddTransient<RazorBaseDB>();
             DataConnection.DefaultSettings = new MySettings();
             services.AddRazorPages().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
@@ -64,12 +59,6 @@ namespace RazorPages
                 endpoints.MapControllers();
                 endpoints.MapRazorPages();
             });
-
-            //using (var scope = app.ApplicationServices.CreateScope())
-            //{
-            //    var dataConnection = scope.ServiceProvider.GetService<RazorBaseDB>();
-            //    //dataConnection.PhoneBooks();
-            //}
         }
     }
 }

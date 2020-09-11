@@ -22,7 +22,9 @@
     .Editing(e => e.Mode(GridEditMode.Form))
     .Columns(columns => {
 
-        columns.AddFor(m => m.IdPb);
+        //columns.AddFor(m => m.IdPb)
+        //    .Visible(false)
+        //    .Name("id");
 
         columns.AddFor(m => m.Name);
 
