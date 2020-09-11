@@ -2,12 +2,14 @@
 <Root Type="DevExpress.CodeRush.Foundation.Markers.SolutionBookmarksContainer">
   <Options Language="Neutral">
     <Items>
-      <Item Id="{b7a25844-d752-4789-9a55-1684da0bd94a}">
+      <Item Id="{c5c9ddb2-b267-4444-8364-d2cd817f0bc3}">
         <Id>1</Id>
         <File>RazorPagesSolution\RazorPages\Pages\PhoneBook.cshtml.cs</File>
         <Line>16</Line>
         <Character>31</Character>
-        <ViewportTopMax>36</ViewportTopMax>
+        <ViewportTop>4</ViewportTop>
+        <ViewportTopMax>37</ViewportTopMax>
+        <TopLine>4</TopLine>
       </Item>
     </Items>
   </Options>

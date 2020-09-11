@@ -4,8 +4,9 @@
 }
 @(Html.DevExtreme().DataGrid<DataModels.PhoneBook>()
     .DataSource(ds => ds.RemoteController()
-    .LoadUrl(Url.Page(null, "ListAll"))
-    .InsertUrl(Url.Page(null, "AddItem")).Key("IdPb")
+        .LoadUrl(Url.Page(null, "GridData"))
+        .UpdateUrl(Url.Page(null, "GridRow"))
+        .Key("IdPb")
     )
     .RemoteOperations(true)
     .ShowBorders(true)

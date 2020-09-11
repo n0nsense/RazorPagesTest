@@ -33,6 +33,7 @@ namespace RazorPages
             //    options.UseSqlServer(Configuration.GetConnectionString("connString"));
             //    options.UseDefaultLogging(provider);
             //});
+            services.AddSingleton<RazorBaseDB>();
             DataConnection.DefaultSettings = new MySettings();
             services.AddRazorPages().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
         }
