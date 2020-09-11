@@ -130,5 +130,12 @@ namespace RazorPages.Pages
             //return new OkResult();
         }
 
+        public class DataGridController : Controller
+        {
+            public ActionResult PopupEditing()
+            {
+                return View();
+            }
+        }
     }
 }

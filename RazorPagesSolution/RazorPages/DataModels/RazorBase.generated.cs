@@ -17,6 +17,7 @@ using LinqToDB.Common;
 using LinqToDB.Configuration;
 using LinqToDB.Data;
 using LinqToDB.Mapping;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DataModels
 {
@@ -236,6 +237,7 @@ namespace DataModels
 			}
 		}
 	}
+	
 }
 
 #pragma warning restore 1591

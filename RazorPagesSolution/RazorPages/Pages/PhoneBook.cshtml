@@ -17,14 +17,36 @@
         .Key("IdPb")
         .OnBeforeSend("grid_dataSource_beforeSend")
     )
-    .RemoteOperations(true)
+    //.RemoteOperations(true)
     .ShowBorders(true)
-    .Editing(e => e.Mode(GridEditMode.Form))
-    .Columns(columns => {
+    .Editing(e => e.Mode(GridEditMode.Popup)
+        .AllowUpdating(true)
+        .Popup(p => p
+            .Title("Contact info")
+            .ShowTitle(true)
+            .Width(700)
+            .Height(500)
+            .Position(pos => pos
+                .My(HorizontalAlignment.Center, VerticalAlignment.Top)
+                .At(HorizontalAlignment.Center, VerticalAlignment.Top)
+                .Of(new JS("window"))
+            )
+        )
+        .Form(f => f.Items(items => {
+            items.AddGroup()
+            .Items(groupItems =>
+            {
+                groupItems.AddSimpleFor(m => m.Name);
+                groupItems.AddSimpleFor(m => m.Patronymic);
+                groupItems.AddSimpleFor(m => m.Surname);
+                groupItems.AddSimpleFor(m => m.Phone);
+                groupItems.AddSimpleFor(m => m.Sex);
+            });
+        })
 
-        //columns.AddFor(m => m.IdPb)
-        //    .Visible(false)
-        //    .Name("id");
+        )
+    )
+    .Columns(columns => {
 
         columns.AddFor(m => m.Name);
 
