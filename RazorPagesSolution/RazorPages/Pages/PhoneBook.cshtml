@@ -1,12 +1,21 @@
 ﻿@page
 @model RazorPages.Pages.PhoneBookModel
-@{
-}
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+
+<script>
+    function grid_dataSource_beforeSend(op, ajax) {
+        ajax.headers = {
+            RequestVerificationToken: "@Xsrf.GetAndStoreTokens(Model.HttpContext).RequestToken"
+        };
+    }
+</script>
 @(Html.DevExtreme().DataGrid<DataModels.PhoneBook>()
     .DataSource(ds => ds.RemoteController()
         .LoadUrl(Url.Page(null, "GridData"))
         .UpdateUrl(Url.Page(null, "GridRow"))
+        .InsertUrl(Url.Page(null, "GridRowAdd"))
         .Key("IdPb")
+        .OnBeforeSend("grid_dataSource_beforeSend")
     )
     .RemoteOperations(true)
     .ShowBorders(true)
