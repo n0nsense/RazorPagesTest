@@ -10,6 +10,7 @@ using DevExtreme.AspNet.Mvc;
 using LinqToDB;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Splat;
 
@@ -17,13 +18,14 @@ namespace RazorPages.Pages
 {
     public class PhoneBookModel : PageModel
     {
-        private RazorBaseDB _context;
+        private readonly RazorBaseDB _context;
+        
         public PhoneBookModel(RazorBaseDB context)
         {
             _context = context;
         }
-        public IActionResult OnGetGridData(DataSourceLoadOptions loadOptions)
-        {  
+        public IActionResult OnGetGridData()
+        {
             return new JsonResult(_context.PhoneBooks.ToList());        
         }
 
@@ -40,13 +42,13 @@ namespace RazorPages.Pages
                     return BadRequest("Validation failed");
 
                 var updated = _context.PhoneBooks.Where(i => i.IdPb.Equals(key))
-                    .Set(w => w.IdPb, _values.IdPb == 0 ? existingRecord.IdPb : _values.IdPb)
-                    .Set(w => w.Name, _values.Name == null ? existingRecord.Name : _values.Name)
-                    .Set(w => w.Patronymic, _values.Patronymic == null ? existingRecord.Patronymic : _values.Patronymic)
-                    .Set(w => w.Phone, _values.Phone == null ? existingRecord.Phone : _values.Phone)
-                    .Set(w => w.Surname, _values.Surname == null ? existingRecord.Surname : _values.Surname)
-                    .Set(w => w.Sex, _values.Sex == null ? existingRecord.Sex : _values.Sex)
-                    .Update();
+                   .Set(w => w.IdPb, _values.IdPb == 0 ? existingRecord.IdPb : _values.IdPb)
+                   .Set(w => w.Name, _values.Name ?? existingRecord.Name)
+                   .Set(w => w.Patronymic, _values.Patronymic ?? existingRecord.Patronymic)
+                   .Set(w => w.Phone, _values.Phone ?? existingRecord.Phone)
+                   .Set(w => w.Surname, _values.Surname ?? existingRecord.Surname)
+                   .Set(w => w.Sex, _values.Sex ?? existingRecord.Sex)
+                   .Update();
 
                 if (updated != 1)
                     return BadRequest("Ошибка при сохранении записи.");
@@ -64,11 +66,11 @@ namespace RazorPages.Pages
                         .Value(p => p.Date, DateTime.Now)
                         .Value(p => p.IdPb, _values.IdPb == 0 ? existingRecord.IdPb : _values.IdPb)
                         .Value(p => p.IdPbh, idpbh + 1)
-                        .Value(p => p.Name, _values.Name == null ? existingRecord.Name : _values.Name)
-                        .Value(p => p.Patronymic, _values.Patronymic == null ? existingRecord.Patronymic : _values.Patronymic)
-                        .Value(p => p.Phone, _values.Phone == null ? existingRecord.Phone : _values.Phone)
-                        .Value(p => p.Surname, _values.Surname == null ? existingRecord.Surname : _values.Surname)
-                        .Value(p => p.Sex, _values.Sex == null ? existingRecord.Sex : _values.Sex)
+                        .Value(p => p.Name, _values.Name ?? existingRecord.Name)
+                        .Value(p => p.Patronymic, _values.Patronymic ?? existingRecord.Patronymic)
+                        .Value(p => p.Phone, _values.Phone ?? existingRecord.Phone)
+                        .Value(p => p.Surname, _values.Surname ?? existingRecord.Surname)
+                        .Value(p => p.Sex, _values.Sex ?? existingRecord.Sex)
                         .Insert();
                 }
                 transaction.Commit();
