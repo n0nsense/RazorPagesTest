@@ -11,14 +11,35 @@
             {
                 using (Html.DevExtreme().ValidationGroup("main"))
                 {
+                    @(Html.DevExtreme().Toolbar()
+                        .Items(items =>
+                        {
+                            items.Add()
+                            .Widget(w => w
+                            .Button()
+                            .Icon("Edit")
+                            .Text("Edit")
+                            .Type(ButtonType.Danger)
+                            .OnClick("enterEditMode")
+                            )
+                            .Location(ToolbarItemLocation.Before);
+                            items.Add()
+                            .Widget(w => w
+                            .Button()
+                            .Text("Save")
+                            .Type(ButtonType.Success)
+                            .UseSubmitBehavior(true)
+                            )
+                            .Location(ToolbarItemLocation.Before);
+                        })
+                    )
                     @Html.AntiForgeryToken()
                     @(Html.DevExtreme().Form<DataModels.PhoneBook>()
                         .ShowValidationSummary(true)
                         .FormData(Model.PBook)
                         .LabelLocation(FormLabelLocation.Top)
                         .ID("ContactForm")
-                        .Items(items =>
-                        {
+                        .Items(items => {
                             items.AddSimpleFor(m => m.Name).IsRequired(true);
 
                             items.AddSimpleFor(m => m.Patronymic).IsRequired(true);
@@ -26,41 +47,41 @@
                             items.AddSimpleFor(m => m.Surname).IsRequired(true);
 
                             items.AddSimpleFor(m => m.Phone)
-                                .HelpText("Введите телефон в формате РФ")
-                                .Editor(e => e.TextBox()
-                                    .Mask("+7 (XXX) XXX-XX-XX")
-                                    .MaskRules(new { X = new JS("/[0-9]/") })
-                                    .MaskInvalidMessage("Телефон должен быть в формате РФ!")
-                                    .UseMaskedValue(true)
-                                )
-                                .IsRequired(true);
+                            .HelpText("Введите телефон в формате РФ")
+                            .Editor(e => e.TextBox()
+                            .Mask("+7 (XXX) XXX-XX-XX")
+                            .MaskRules(new { X = new JS("/[0-9]/") })
+                            .MaskInvalidMessage("Телефон должен быть в формате РФ!")
+                            .UseMaskedValue(true)
+                            )
+                            .IsRequired(true);
 
                             items.AddSimpleFor(m => m.Sex)
-                                .HelpText("Выберите пол f / m")
-                                .Editor(e => e.TextBox()
-                                    .Mask("X")
-                                    .MaskRules(new { X = new JS("/[fm]/") })
-                                    .MaskInvalidMessage("Пол должен быть или f или m!")
-                                    .UseMaskedValue(true)
-                                )
-                                .IsRequired(true);
-                            items.AddGroup()
-                                .Caption("Действия")
-                                .Items(gItems =>
-                                {
-                                    gItems.AddButton()
-                                        .ButtonOptions(b => b.Text("Save")
-                                        .Type(ButtonType.Success)
-                                        .UseSubmitBehavior(true)
-                                    );
-                                    gItems.AddButton()
-                                        .ButtonOptions(b => b.Text("Edit")
-                                        .Type(ButtonType.Normal)
-                                        .OnClick("enterEditMode")
-                                    );                                    
-                                });
+                            .HelpText("Выберите пол f / m")
+                            .Editor(e => e.TextBox()
+                            .Mask("X")
+                            .MaskRules(new { X = new JS("/[fm]/") })
+                            .MaskInvalidMessage("Пол должен быть или f или m!")
+                            .UseMaskedValue(true)
+                            )
+                            .IsRequired(true);
+                            //items.AddGroup()
+                            //.Caption("Действия")
+                            //.Items(gItems =>
+                            //{
+                            //gItems.AddButton()
+                            //.ButtonOptions(b => b.Text("Save")
+                            //.Type(ButtonType.Success)
+                            //.UseSubmitBehavior(true)
+                            //);
+                            //gItems.AddButton()
+                            //.ButtonOptions(b => b.Text("Edit")
+                            //.Type(ButtonType.Normal)
+                            //.OnClick("enterEditMode")
+                            //);
+                            //});
                         })
-                    .ReadOnly(true)
+                        .ReadOnly(true)
                     )
                 }
             }
@@ -76,7 +97,7 @@
                 .ID("HistoryForm")
                 .Columns(columns => {
 
-                    columns.AddFor(m => m.Date);
+                    columns.AddFor(m => m.Date).Name("Changed");
 
                     columns.AddFor(m => m.Name);
 

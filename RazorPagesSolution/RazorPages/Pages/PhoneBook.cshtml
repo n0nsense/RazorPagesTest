@@ -17,6 +17,13 @@
     {
         @Html.AntiForgeryToken()
         @(Html.DevExtreme().DataGrid<DataModels.PhoneBook>()
+        .Paging(paging => paging.PageSize(10))
+        .Pager(pager =>
+        {
+            pager.ShowPageSizeSelector(true);
+            pager.AllowedPageSizes(new[] { 5, 10, 20 });
+            pager.ShowInfo(true);
+        })
         .DataSource(ds => ds.RemoteController()
             .LoadUrl(Url.Page(null, "GridData"))
             //.UpdateUrl(Url.Page(null, "GridRow"))
@@ -77,13 +84,21 @@
 
             columns.AddFor(m => m.IdPb).CellTemplate(new JS("getCellTemplate")).Caption("");
 
-            })
+        })
         .ColumnAutoWidth(true)
         .WordWrapEnabled(true)
+        .AllowColumnResizing(true)
         )
 
     }
 }
+
+<form method="post">
+    <input asp-for="DataCount" class="form-control-plaintext" placeholder="@Model.DataCount"/>
+    <button type="submit" class="dx-button-danger align-content-center">Generate Data</button>
+</form>
+
+
 
 
 <script>

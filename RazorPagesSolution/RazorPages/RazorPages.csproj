@@ -4,6 +4,9 @@
     <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Controllers\MyMethodsController.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="linq2db" Version="3.1.2" />
     <PackageReference Include="linq2db.AspNet" Version="3.1.2" />
     <PackageReference Include="linq2db.SQLite" Version="3.1.2" />
@@ -25,6 +28,18 @@
     <None Update="DataModels\RazorBase.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>RazorBase.generated.cs</LastGenOutput>
+    </None>
+    <None Update="OtherFiles\FemaleNames.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="OtherFiles\MaleNames.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="OtherFiles\patronymic.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="OtherFiles\surnames.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
