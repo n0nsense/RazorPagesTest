@@ -11,55 +11,81 @@
         };
     }
 </script>
-@(Html.DevExtreme().DataGrid<DataModels.PhoneBook>()
-    .DataSource(ds => ds.RemoteController()
-        .LoadUrl(Url.Page(null, "GridData"))
-        //.UpdateUrl(Url.Page(null, "GridRow"))
-        //.UpdateUrl("/ContactView")
-        //.InsertUrl(Url.Page(null, "GridRowAdd"))
-        .Key("IdPb")
-        .OnBeforeSend("grid_dataSource_beforeSend")
-    )
-    //.Selection(s => s.Mode(SelectionMode.Single))
-    .RemoteOperations(true)
-    .ShowBorders(true)
-    //.OnSelectionChanged("selection_changed")
-    .Editing(e => e
-        .AllowUpdating(true)
-        .AllowAdding(true)
-        .Mode(GridEditMode.Form)
-        .Form(f => f
-            .Items(i => {
-                i.AddGroup()
-                .Caption("Account Info")
-                .Items(gItems => {
-                    gItems.AddSimple().DataField("Name");
-                    gItems.AddSimple().DataField("Patronymic");
-                    gItems.AddSimple().DataField("Surname");
-                    gItems.AddSimple().DataField("Phone");
-                    gItems.AddSimple().DataField("Sex");
-                });
-            })
+@using (Html.BeginForm())
+{
+    using (Html.DevExtreme().ValidationGroup("main"))
+    {
+        @Html.AntiForgeryToken()
+        @(Html.DevExtreme().DataGrid<DataModels.PhoneBook>()
+        .DataSource(ds => ds.RemoteController()
+            .LoadUrl(Url.Page(null, "GridData"))
+            //.UpdateUrl(Url.Page(null, "GridRow"))
+            //.UpdateUrl("/ContactView")
+            .InsertUrl(Url.Page(null, "GridRowAdd"))
+            .Key("IdPb")
+            .OnBeforeSend("grid_dataSource_beforeSend")
         )
-    )
-    .Columns(columns => {
+        //.Selection(s => s.Mode(SelectionMode.Single))
+        .RemoteOperations(true)
+        .ShowBorders(true)
+        //.OnSelectionChanged("selection_changed")
+        .Editing(e => e
+            //.AllowUpdating(true)
+            .AllowAdding(true)
+            .Mode(GridEditMode.Form)
+            .Form(f => f
+                .Items(i => {
+                    i.AddGroup()
+                    .Caption("Account Info")
+                    .Items(gItems => {
+                        gItems.AddSimple().DataField("Name").IsRequired(true);
+                        gItems.AddSimple().DataField("Patronymic").IsRequired(true);
+                        gItems.AddSimple().DataField("Surname").IsRequired(true);
+                        gItems.AddSimple().DataField("Phone")
+                            .HelpText("Введите телефон в формате РФ")
+                                .Editor(e => e.TextBox()
+                                    .Mask("+7 (XXX) XXX-XX-XX")
+                                    .MaskRules(new { X = new JS("/[0-9]/") })
+                                    .MaskInvalidMessage("Телефон должен быть в формате РФ!")
+                                    .UseMaskedValue(true)
+                                )
+                                .IsRequired(true);
+                        gItems.AddSimple().DataField("Sex")
+                            .HelpText("Выберите пол f / m")
+                                .Editor(e => e.TextBox()
+                                    .Mask("X")
+                                    .MaskRules(new { X = new JS("/[fm]/") })
+                                    .MaskInvalidMessage("Пол должен быть или f или m!")
+                                    .UseMaskedValue(true)
+                                )
+                                .IsRequired(true);
+                    });
+                })
+            )
+        )
+        .Columns(columns => {
+
+            columns.AddFor(m => m.Name);
+
+            columns.AddFor(m => m.Patronymic);
+
+            columns.AddFor(m => m.Surname);
+
+            columns.AddFor(m => m.Phone);
+
+            columns.AddFor(m => m.Sex);
+
+            columns.AddFor(m => m.IdPb).CellTemplate(new JS("getCellTemplate")).Caption("");
+
+            })
+        .ColumnAutoWidth(true)
+        .WordWrapEnabled(true)
+        )
+
+    }
+}
 
 
-
-        columns.AddFor(m => m.Name);
-
-        columns.AddFor(m => m.Patronymic);
-
-        columns.AddFor(m => m.Surname);
-
-        columns.AddFor(m => m.Phone);
-
-        columns.AddFor(m => m.Sex);
-
-        columns.AddFor(m => m.IdPb).CellTemplate(new JS("getCellTemplate")).Caption("");
-
-    })
-)
 <script>
     //function selection_changed(sItem) {
     //    var data = sItem.selectedRowsData[0];

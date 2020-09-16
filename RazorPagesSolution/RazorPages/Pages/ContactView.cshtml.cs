@@ -35,6 +35,10 @@ namespace RazorPages.Pages
 
         public IActionResult OnPost(int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
             try
             {
                 var transaction = _context.BeginTransaction();
@@ -65,7 +69,7 @@ namespace RazorPages.Pages
                         .Insert();
                 }
                 transaction.Commit();
-                return new OkResult();
+                return Redirect("/");
             }
             catch (Exception ex)
             {

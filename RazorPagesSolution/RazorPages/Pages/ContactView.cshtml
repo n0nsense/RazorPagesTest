@@ -9,7 +9,7 @@
             <h4>Contact info</h4>
             @using (Html.BeginForm())
             {
-                using (Html.DevExtreme().ValidationGroup())
+                using (Html.DevExtreme().ValidationGroup("main"))
                 {
                     @Html.AntiForgeryToken()
                     @(Html.DevExtreme().Form<DataModels.PhoneBook>()
@@ -17,14 +17,13 @@
                         .FormData(Model.PBook)
                         .LabelLocation(FormLabelLocation.Top)
                         .ID("ContactForm")
-                        .OptionalMark("EditMode")
                         .Items(items =>
                         {
-                            items.AddSimpleFor(m => m.Name);
+                            items.AddSimpleFor(m => m.Name).IsRequired(true);
 
-                            items.AddSimpleFor(m => m.Patronymic);
+                            items.AddSimpleFor(m => m.Patronymic).IsRequired(true);
 
-                            items.AddSimpleFor(m => m.Surname);
+                            items.AddSimpleFor(m => m.Surname).IsRequired(true);
 
                             items.AddSimpleFor(m => m.Phone)
                                 .HelpText("Введите телефон в формате РФ")
@@ -33,7 +32,8 @@
                                     .MaskRules(new { X = new JS("/[0-9]/") })
                                     .MaskInvalidMessage("Телефон должен быть в формате РФ!")
                                     .UseMaskedValue(true)
-                                );
+                                )
+                                .IsRequired(true);
 
                             items.AddSimpleFor(m => m.Sex)
                                 .HelpText("Выберите пол f / m")
@@ -42,7 +42,8 @@
                                     .MaskRules(new { X = new JS("/[fm]/") })
                                     .MaskInvalidMessage("Пол должен быть или f или m!")
                                     .UseMaskedValue(true)
-                                );
+                                )
+                                .IsRequired(true);
                             items.AddGroup()
                                 .Caption("Действия")
                                 .Items(gItems =>
@@ -56,7 +57,7 @@
                                         .ButtonOptions(b => b.Text("Edit")
                                         .Type(ButtonType.Normal)
                                         .OnClick("enterEditMode")
-                                    );
+                                    );                                    
                                 });
                         })
                     .ReadOnly(true)
@@ -87,6 +88,8 @@
 
                     columns.AddFor(m => m.Sex);
                 })
+                .ColumnAutoWidth(true)
+                .WordWrapEnabled(true)
             )
         </div>
     </div>
