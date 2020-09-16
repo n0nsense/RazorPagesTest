@@ -200,7 +200,7 @@ namespace RazorPages.Pages
                 
                 Random rnd = new Random();
                 PhoneBook phoneBook = new PhoneBook();
-                int sexChoice = rnd.Next(0, 1);
+                int sexChoice = rnd.Next(0, 2);
                 if(sexChoice == 0)
                 {
                     phoneBook.Sex = "f";
