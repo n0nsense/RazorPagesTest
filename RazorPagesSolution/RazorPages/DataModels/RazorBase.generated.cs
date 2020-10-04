@@ -232,8 +232,9 @@ namespace DataModels
 					{
 						Name = "RazorBase",
 						ProviderName = "SqlServer",
-						ConnectionString = Environment.MachineName == "PROG" ? @"Server=PROG;Database=RazorBase;Trusted_Connection=True;Enlist=False;" : ""
-					};
+						ConnectionString = Environment.MachineName == "PROG" ? @"Server=PROG;Database=RazorBase;Trusted_Connection=True;Enlist=False;" :
+							@"Server=DESKTOP-NRD2CRJ\SQLEXPRESS;Database=RazorBase;Trusted_Connection=True;Enlist=False;"
+                    };
 			}
 		}
 	}
